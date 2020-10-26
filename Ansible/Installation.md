@@ -64,3 +64,12 @@ ansible -m command -a "uname -r" "test_servers"
 # 僅列出 web_servers 群組內的主機
 ansible web_servers -i /etc/ansible/hosts --list-hosts
 ```
+- 傳送檔案至 test_servers 群組內的主機
+>- 控制端內新增一個名為 TEST_COPY 的檔案 `vim TEST_COPY`
+```
+This is for ansible copy test!!!
+```
+>- 使用使令傳送:
+```
+ansible test_servers -m copy -a "src=TEST_COPY dest=/home/ansuser/"
+```
