@@ -1,8 +1,8 @@
 ***此 Demo 需要至少兩台EC2主機(RHEL8)***
 
-> 主機1: Ansible Control Server(控制端)
+>主機1: Ansible Control Server(控制端)
 
-主機2: Ansible Controlled    (被控端)
+>主機2: Ansible Controlled    (被控端)
 
 *控制端(root)*
 1. 因為 Ansible 不在 RHEL8 預設軟體庫內，所以需要安裝 epel-release 增加軟體源。
