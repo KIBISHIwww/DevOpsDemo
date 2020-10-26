@@ -39,7 +39,7 @@ ssh-copy-id username@ip_address
 ```
 IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
 ```
-...*同時也可自訂群組名稱，以利辨識及管理。例:
+- 同時也可自訂群組名稱，以利辨識及管理。例:
 ```
 [test_servers] #群組名稱(test_servers)
 IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
@@ -53,4 +53,13 @@ IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=
 - 並輸入指令以測試控制端是否可 Ping 通被控端，成功時會出現綠色「SUCCESS」字樣。
 ```
 ansible all -m ping
+```
+- 也可使用其他指令去驗證，例:
+```
+# 檢查 test_servers 群組內所有主機的內核版本
+ansible -m command -a "uname -r" "test_servers"
+```
+```
+# 僅列出 web_servers 群組內的主機
+ansible web_servers -i /etc/ansible/hosts --list-hosts
 ```
