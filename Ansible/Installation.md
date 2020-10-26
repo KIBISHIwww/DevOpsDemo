@@ -5,7 +5,7 @@
 ```
 - ssh-copy-id: Permission Denied
 >至Host端
-```
+>>```
 sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo service sshd reload
 ```
