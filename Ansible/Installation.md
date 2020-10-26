@@ -34,3 +34,8 @@ sudo service sshd reload
 ```
 ssh-copy-id username@ip_address
 ```
+6. 驗證測試
+- 新增被控端 IP 至 `/etc/ansible/hosts` 內
+```
+IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
+```
