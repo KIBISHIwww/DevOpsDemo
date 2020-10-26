@@ -21,9 +21,6 @@ ansible --version
 ssh-keygen (出現選項時，使用預設(Enter)即可)
 ```
 5. 將生成的檔案匯入至被控端
-```
-ssh-copy-id username@ip_address
-```
 **但 EC2 主機是使用金鑰連線，所以並不知道預設(ec2-user)以及 root 的密碼**
 >- 登陸至被控端(root)，並增加一名使用者。(此處使用 ansuser)
 `useradd ansuser`
@@ -33,4 +30,7 @@ ssh-copy-id username@ip_address
 ```
 sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo service sshd reload
+```
+```
+ssh-copy-id username@ip_address
 ```
