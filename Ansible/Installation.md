@@ -1,7 +1,7 @@
 ***此 Demo 需要至少兩台EC2主機(RHEL8)***
 
-> 主機1: Ansible Control Server(控制端)
-> 主機2: Ansible Controlled    (被控端)
+...*主機1: Ansible Control Server(控制端)
+...*主機2: Ansible Controlled    (被控端)
 
 *控制端(root)*
 1. 因為 Ansible 不在 RHEL8 預設軟體庫內，所以需要安裝 epel-release 增加軟體源。
@@ -39,6 +39,17 @@ ssh-copy-id username@ip_address
 ```
 IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
 ```
+...*同時也可自訂群組名稱，以利辨識及管理。例:
+```
+[test_servers] #群組名稱(test_servers)
+IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
+...
+
+[web_servers] #群組名稱
+IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
+...
+```
+
 - 並輸入指令以測試控制端是否可 Ping 通被控端，成功時會出現綠色「SUCCESS」字樣。
 ```
 ansible all -m ping
