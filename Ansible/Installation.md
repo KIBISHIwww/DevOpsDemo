@@ -30,7 +30,7 @@ ssh-keygen (出現選項時，使用預設(Enter)即可)
 sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sudo service sshd reload
 ```
-* 再返回至控制端，將生成的檔案匯入至被控端
+* 再返回至**控制端**，將生成的檔案匯入**被控端**
 ```
 ssh-copy-id username@ip_address
 ```
