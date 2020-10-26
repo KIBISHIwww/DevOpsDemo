@@ -4,7 +4,7 @@
 192.168.8.51 ansible_ssh_user=test ansible_ssh_pass=test ansible_ssh_port=22
 ```
 - ssh-copy-id: Permission Denied
->To host
+>To host(root)
 1. Add the ansuser to sudoers file. 
 ```echo "ansuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers```
 2. Turn PasswordAuthentication to yes
