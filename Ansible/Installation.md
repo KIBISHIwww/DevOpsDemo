@@ -39,3 +39,7 @@ ssh-copy-id username@ip_address
 ```
 IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
 ```
+- 並輸入指令以測試控制端是否可 Ping 通被控端，成功時會出現綠色「SUCCESS」字樣。
+```
+ansible all -m ping
+```
