@@ -82,7 +82,7 @@ ansible web_servers -i /etc/ansible/hosts --list-hosts
 ```
 This is for ansible copy test!!!
 ```
->- 使用使令傳送:
+>- 使用指令傳送:
 ```
 ansible test_servers -m copy -a "src=TEST_COPY dest=/home/ansuser/"
 ```
