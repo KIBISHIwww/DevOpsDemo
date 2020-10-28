@@ -17,23 +17,36 @@ dnf install ansible
 ```
 ansible --version
 ```
-4. Ansible 端點之間通常使用免密碼登入，以便在自動化佈署時需要手動一台一台輸入密碼，所以使用指令生成 ssh 連線的 keygen。
+4. Ansible 端點之間通常使用免密碼登入，以便在自動化佈署時需要手動一台一台輸入密碼，所以使用指令在 **控制端** 生成 ssh keygen。
 ```
 ssh-keygen (出現選項時，使用預設(Enter)即可)
 ```
 5. 將生成的檔案匯入至被控端，**但 EC2 主機是使用金鑰連線，所以並不知道預設(ec2-user)以及 root 的密碼**
->- 所以先登陸至**被控端(root)** ，並增加一名使用者。(此處使用 ansuser)
-`useradd ansuser`
+>- 所以需要先登陸至**被控端(root)** ，並增加一名使用者。(此處使用 ansuser)
+```
+# 新增使用者
+useradd ansuser
+# 修改使用者密碼
+passwd ansuser
+```
 >- 將該名使用者加入 sudoers 名單中。
-`echo "ansuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
->- 並且把預設關閉的「密碼登入」開啟
+```
+echo "ansuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+```
+>- 並將預設關閉的「密碼登入」開啟，並重啟 sshd 服務。
 ```
 sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-sudo service sshd reload
+
+service sshd reload
 ```
-* 再返回至**控制端**，將生成的檔案匯入**被控端**
+* 再回到**控制端**，將生成的檔案匯入**被控端**
 ```
+# 控制端與被控端在互為不同使用者名稱的情況下須指定被控端的使用者名稱
+# Ex: 控制端使用 root 控制 被控端 ansuser
 ssh-copy-id username@ip_address
+
+# 如果在使用者名稱相同的情況下，可直接省略使用者名稱輸入IP即可
+ssh-copy-id ip_address
 ```
 6. 驗證測試
 - 新增被控端 IP 至 `/etc/ansible/hosts` 內
