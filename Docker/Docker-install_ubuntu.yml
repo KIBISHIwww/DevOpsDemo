@@ -1,0 +1,60 @@
+---
+- name: docker install & start services
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+  - name: 1. Update apt-get repo and cache
+    apt:
+      update_cache: yes
+      force_apt_get: yes
+      cache_valid_time: 3600
+
+  - name: 2. Install prerequisites for Docker repository
+    apt:
+      name: '{{ item }}'
+      state: present
+    loop:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+
+  - name: 3. Add Docker's official apt key.
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+      state: present
+    register: add_key
+    ignore_errors: true
+
+  - name: 4. Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} edge
+      state: present
+
+  - name: 5. Install Docker CE
+    apt:
+      name: '{{ item }}'
+      state: present
+    loop:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+        #  - name: 6. Install prerequisites for docker-compose
+        #    apt:
+        #      name: ['python3-pip', 'python3-setuptools', 'virtualenv']
+        #
+        #  - name: 7. Install docker-compose
+        #    pip:
+        #      name: docker-compose
+
+  - name: 6. Start Docker service
+    service:
+      name: docker
+      state: started
+      enabled: yes
+
+  - name: 7. Verify Docker be installed
+    command: docker run --rm hello-world
