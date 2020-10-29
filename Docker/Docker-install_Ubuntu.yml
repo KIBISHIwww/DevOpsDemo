@@ -42,14 +42,6 @@
       - docker-ce-cli
       - containerd.io
 
-        #  - name: 6. Install prerequisites for docker-compose
-        #    apt:
-        #      name: ['python3-pip', 'python3-setuptools', 'virtualenv']
-        #
-        #  - name: 7. Install docker-compose
-        #    pip:
-        #      name: docker-compose
-
   - name: 6. Start Docker service
     service:
       name: docker
