@@ -71,7 +71,7 @@ ansible all -m ping
 - 也可使用其他指令去驗證，例:
 ```
 # 檢查 test_servers 群組內所有主機的內核版本
-ansible -m command -a "uname -r" "test_servers"
+ansible all -m command -a "uname -r"
 ```
 ```
 # 僅列出 web_servers 群組內的主機
