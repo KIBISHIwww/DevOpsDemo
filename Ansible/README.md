@@ -31,7 +31,7 @@ useradd ansuser
 passwd ansuser
 ```
 > ##### P.S. 如果被控端使用 Ubuntu 20.04 LTS
-> 此處與 RHEL 8 不一樣的地方是，Ubuntu如果使用 useradd 新增使用者時並不會同時創建家目錄。
+> 此處與 RHEL 8 不一樣的地方是，Ubuntu 如果使用 useradd 新增使用者時並不會同時創建家目錄。
 ```
 # 新增使用者
 adduser ansuser
@@ -73,8 +73,9 @@ IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=
 IP_ADDRESS ansible_ssh_user=USERNAME ansible_ssh_pass=PASSWORD ansible_ssh_port=22
 ...
 ```
-
-- 並輸入指令以測試控制端是否可 Ping 通被控端，成功時會出現綠色「SUCCESS」字樣。
+---
+#### Ansible 功能驗證
+- 輸入指令以測試控制端是否可 Ping 通被控端，成功時會出現綠色「SUCCESS」字樣。
 ```
 ansible all -m ping
 ```
