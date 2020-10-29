@@ -1,6 +1,6 @@
 ---
 - name: docker install & start services
-  hosts: test_servers
+  hosts: RHEL
   become: yes
 
   tasks:
@@ -22,16 +22,6 @@
     yum:
       name: docker-ce
       state: latest
-
-        #  - name: 3. Install all of Docker packages
-        #    yum:
-        #      name: '{{ item }}'
-        #      state: latest
-        #      #    with_items:
-        #    loop:
-        #      - docker-ce
-        #      - docker-ce-cli
-        #      - containerd.io
 
   - name: 4. Start Docker service
     service:
