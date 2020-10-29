@@ -1,4 +1,4 @@
-## AWS EC2 Docker 安裝
+## AWS EC2 Ansible 安裝
 ***此 Demo 需要至少兩台EC2主機***
 - 主機 1: Ansible Control Server(控制端)  
 - 主機 2: Ansible Controlled    (被控端)
@@ -22,13 +22,19 @@ ansible --version
 ssh-keygen (出現選項時，使用預設(Enter)即可)
 ```
 5. 將生成的檔案匯入至被控端，**但 EC2 主機是使用金鑰連線，所以並不知道預設(ec2-user)以及 root 的密碼**
->- 所以需要先登陸至**被控端(root)** ，並增加一名使用者。(此處使用 ansuser)
+>- 所以需要先至**被控端(root)** 增加一名使用者。(此處使用 ansuser)
 ```
 # 新增使用者
 useradd ansuser
 
 # 修改使用者密碼
 passwd ansuser
+```
+> ##### P.S. 如果被控端使用 Ubuntu 20.04 LTS
+> 此處與 RHEL 8 不一樣的地方是，Ubuntu如果使用 useradd 新增使用者時並不會同時創建家目錄。
+```
+# 新增使用者
+adduser ansuser
 ```
 >- 將該名使用者加入 sudoers 名單中。
 ```
@@ -37,7 +43,6 @@ echo "ansuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 >- 並將預設關閉的「密碼登入」開啟，並重啟 sshd 服務。
 ```
 sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-
 service sshd reload
 ```
 * 再回到**控制端**，將生成的檔案匯入**被控端**
